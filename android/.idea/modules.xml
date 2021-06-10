@@ -2,17 +2,9 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Weather_App.iml" filepath="$PROJECT_DIR$/.idea/modules/Weather_App.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/Weather_App.app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/Weather_App.app.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/-1746460712/Weather_App.react-native-community_geolocation.iml" filepath="$PROJECT_DIR$/.idea/modules/-1746460712/Weather_App.react-native-community_geolocation.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/1615762297/Weather_App.react-native-community_masked-view.iml" filepath="$PROJECT_DIR$/.idea/modules/1615762297/Weather_App.react-native-community_masked-view.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/932263806/Weather_App.react-native-gesture-handler.iml" filepath="$PROJECT_DIR$/.idea/modules/932263806/Weather_App.react-native-gesture-handler.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/-74718955/Weather_App.react-native-maps.iml" filepath="$PROJECT_DIR$/.idea/modules/-74718955/Weather_App.react-native-maps.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/-1706891224/Weather_App.react-native-notifications.iml" filepath="$PROJECT_DIR$/.idea/modules/-1706891224/Weather_App.react-native-notifications.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/-2086542474/Weather_App.react-native-push-notification.iml" filepath="$PROJECT_DIR$/.idea/modules/-2086542474/Weather_App.react-native-push-notification.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/-875417634/Weather_App.react-native-reanimated.iml" filepath="$PROJECT_DIR$/.idea/modules/-875417634/Weather_App.react-native-reanimated.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/-1091278745/Weather_App.react-native-safe-area-context.iml" filepath="$PROJECT_DIR$/.idea/modules/-1091278745/Weather_App.react-native-safe-area-context.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/-360919745/Weather_App.react-native-screens.iml" filepath="$PROJECT_DIR$/.idea/modules/-360919745/Weather_App.react-native-screens.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/weather_app.iml" filepath="$PROJECT_DIR$/.idea/modules/weather_app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/weather_app.app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/weather_app.app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/42147163/weather_app.react-native-push-notification.iml" filepath="$PROJECT_DIR$/.idea/modules/42147163/weather_app.react-native-push-notification.iml" />
     </modules>
   </component>
 </project>
