@@ -1,5 +1,4 @@
-import React, { Component } from 'react'; 
-import RNLocalNotifications from 'react-native-local-notifications';
+import React, { Component } from 'react';  
 
 import { AppRegistry, FlatList,  
     StyleSheet, Text, View,Alert, SafeAreaView, TouchableOpacity, Image, Platform, PermissionsAndroid, ActivityIndicator } from 'react-native';  
@@ -98,11 +97,7 @@ export default class Details extends Component{
 
 
 componentDidMount(){
-    RNLocalNotifications.createNotification(1, 'Some text', '2021-06-09 17:59', 'default');
-
-    RNLocalNotifications.updateNotification(1, 'Some modifications to text', '2021-06-09 18:01', 'default');
-    console.log("aaa"+this.props.route.params.data);
-    this.setState({selected:this.props.route.params.data,pos:this.props.route.params.pos});
+   this.setState({selected:this.props.route.params.data,pos:this.props.route.params.pos});
     // this.requestLocationPermission();
 }
 
