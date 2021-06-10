@@ -1,2 +1,2 @@
-${PODS_ROOT}/Target Support Files/Pods-Weather_App/Pods-Weather_App-frameworks.sh
+${PODS_ROOT}/Target Support Files/Pods-weather_app/Pods-weather_app-frameworks.sh
 ${PODS_XCFRAMEWORKS_BUILD_DIR}/OpenSSL/OpenSSL.framework/OpenSSL
