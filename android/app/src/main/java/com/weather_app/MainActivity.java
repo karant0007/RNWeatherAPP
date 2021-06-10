@@ -2,9 +2,6 @@ package com.weather_app;
 
 import com.facebook.react.ReactActivity;
 
-import android.app.NotificationManager;
-import android.content.Context;
-
 public class MainActivity extends ReactActivity {
 
   /**
@@ -13,13 +10,6 @@ public class MainActivity extends ReactActivity {
    */
   @Override
   protected String getMainComponentName() {
-    return "Weather_App";
-  }
-
-  @Override
-  public void onResume() {
-    super.onResume();
-    NotificationManager nMgr = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-    nMgr.cancelAll();
+    return "weather_app";
   }
 }
