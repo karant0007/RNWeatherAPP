@@ -1,10 +1,11 @@
 import React, { Component } from 'react';  
 import { AppRegistry, FlatList,  
-    StyleSheet, Text, View,Alert, SafeAreaView, TouchableOpacity, Image, Platform, PermissionsAndroid } from 'react-native';  
+    StyleSheet, Text, View,Alert, SafeAreaView, TouchableOpacity, Image, Platform, PermissionsAndroid, ActivityIndicator } from 'react-native';  
 import MapView, { Marker } from 'react-native-maps';
   
 import Geolocation from '@react-native-community/geolocation';
-import RNLocalNotifications from 'react-native-local-notifications';
+import PushNotification from 'react-native-push-notification';
+import PushNotificationIOS from '@react-native-community/push-notification-ios';
  
 export default class List extends Component {  
     state={
@@ -49,7 +50,7 @@ export default class List extends Component {
             //getting the Latitude from the location json
             const currentLatitude = 
               JSON.stringify(position.coords.latitude);
-     console.log(position.coords);
+    //  console.log(position.coords);
      this.setState({pos:position});
      this.get_data();  
           },
@@ -80,7 +81,7 @@ export default class List extends Component {
               JSON.stringify(position.coords.latitude);
     
             //Setting Longitude state
-         console.log(position.coords);
+        //  console.log(position.coords);
           },
           (error) => {
             console.log(error.message);
@@ -103,15 +104,67 @@ export default class List extends Component {
             redirect: 'follow'
           };
           
+
+          
+
           fetch("https://api.openweathermap.org/data/2.5/find?lat="+this.state.pos.coords.latitude+"&lon="+this.state.pos.coords.longitude+"&cnt=50&units=metric&appid=5c3091a1ce4e94e53d89e67771c23ee6", requestOptions)
             .then(response => response.json())
-            .then((result) => {this.setState({data:result.list}),console.log(this.state.data[0].weather)})
+            .then((result) => {this.setState({data:result.list}),this.get_weather()})
             .catch(error => console.log('error', error));
-            console.log(this.state.data);
+            // console.log(this.state.data);
       
          
            
            }
+
+           async get_weather(){
+
+
+            var requestOptions = {
+                method: 'GET',
+                redirect: 'follow'
+              };
+              
+              fetch("https://api.openweathermap.org/data/2.5/weather?lat="+this.state.pos.coords.latitude+"&lon="+this.state.pos.coords.longitude+"&units=metric&appid=5c3091a1ce4e94e53d89e67771c23ee6", requestOptions)
+                .then(response => response.json())
+                .then((result) => {this.noti(result)})
+                .catch(error => console.log('error', error));
+                // console.log(this.state.data);
+          
+             
+               
+               }
+
+
+noti(data){
+  console.log(data);
+  const timeElapsed = Date.now()+ (3 * 1000);
+  // console.log(timeElapsed);
+const today = new Date(timeElapsed);
+Platform.OS=="ios" ? PushNotificationIOS.scheduleLocalNotification({alertBody:"Alert noti",fireDate:today.toISOString(),alertTitle:"Notifi",})
+:null;
+ 
+
+  PushNotification.createChannel(
+    {
+      channelId: "1", // (required)
+      channelName: "My channel", // (required)
+      // channelDescription: "A channel to categorise your notifications", // (optional) default: undefined.
+      // playSound: false, // (optional) default: true
+    //  importance: Importance.HIGH, // (optional) default: Importance.HIGH. Int value of the Android notification importance
+      // vibrate: true, // (optional) default: true. Creates the default vibration patten if true.
+    },
+    (created) => console.log(`createChannel returned '${created}'`) // (optional) callback returns whether the channel was created, false means it already existed.
+  );
+  PushNotification.localNotificationSchedule({
+    channelId:'1',
+    message: "Current Temparature "+data.main.temp+"\u2103",
+    largeIconUrl:'https://www.iconsdb.com/icons/preview/white/clouds-xxl.png', // (required)
+    number: 1,
+    title:"Weathe App",
+    date: new Date(Date.now() + (3 * 1000)) // in 3 secs
+  });
+}
 
            go(item){
              console.log(item);
@@ -119,8 +172,9 @@ export default class List extends Component {
              this.props.navigation.navigate('details',{'data':item,'pos':this.state.pos})
            }
     componentDidMount(){
-      RNLocalNotifications.createNotification(1, 'Some text', '2021-06-09 18:03', 'default');
         this.requestLocationPermission();
+
+
     }
   
     //handling onPress action  
@@ -129,7 +183,7 @@ export default class List extends Component {
     }  
   
     render() {  
-        if(!this.state.screen)
+        if(this.state.data)
         return (  
             <SafeAreaView >
                 <View  >  
@@ -158,58 +212,16 @@ export default class List extends Component {
             </SafeAreaView>  
         );else {
             return(
-                <SafeAreaView style={{flex:1,backgroundColor:"white"}}>
- <View style={{padding:15,backgroundColor:"#00804A",justifyContent:"center",flexDirection:"row",alignItems:"center",}}>
-  <TouchableOpacity onPress={()=>this.setState({screen:false})} style={{position:"absolute",left:10}}>
-       <Image source={require('../assets/left-arrow.png')} style={{height:20,width:20,}}/>
-</TouchableOpacity>
-<Text style={{fontSize:20,color:"white",fontWeight:"500"}}>Weather App</Text>
-                    </View>
-                    <View style={{flex:1,backgroundColor:"grey"}}>
-                    <MapView
-          style={styles.mapStyle}
-          initialRegion={{
-            latitude:this.state.pos.coords.latitude,
-            longitude: this.state.pos.coords.longitude,
-            latitudeDelta: 0.0922,
-            longitudeDelta: 0.0421,
-          }}
-          customMapStyle={mapStyle}>
-          <Marker
-            draggable
-            coordinate={{
-              latitude: this.state.pos.coords.latitude,
-              longitude: this.state.pos.coords.longitude,
-            }}
-            onDragEnd={
-              (e) => alert(JSON.stringify(e.nativeEvent.coordinate))
-            }
-            title={'Test Marker'}
-            description={'This is a description of the marker'}
+              <ActivityIndicator
+              color='#17868b'
+              animating={true}
+              style={{
+                  flex: 1,
+                  alignItems: 'center',
+                  justifyContent: 'center',
+              }}
+              size={50}
           />
-        </MapView>
-                    </View>
-                    <View style={{flexDirection:"row"}}>
-<View style={{justifyContent:"center",alignSelf:"flex-start",marginBottom:30,margin:5}}> 
-
-<Text style={{fontSize:20,fontWeight:"bold",padding:10}}>{this.state.selected.name}</Text>
-<Text style={styles.item}  
-                              >{this.state.selected.weather[0].main+" ("+this.state.selected.weather[0].description+")"}</Text>
-<Text style={styles.item}>Humidity: {this.state.selected.main.humidity}</Text>
-                         <Text style={styles.item}>Wind Speed: {this.state.selected.main.humidity}</Text>
-                         <Text style={styles.item}>Max. Temp: {this.state.selected.main.temp_max}<Text style={{fontSize:20}}>{"\u2103"}</Text></Text>
-                         <Text style={styles.item}>Min. Temp: {this.state.selected.main.temp_min}<Text style={{fontSize:20}}>{"\u2103"}</Text></Text>
-                         
-                      
-</View> 
-
-<View style={{justifyContent:"center",flex:1,alignItems:"center"}}>
-<Text style={{fontSize:25}}  
-                            >{this.state.selected.main.temp}<Text style={{fontSize:25}}>{"\u2103"}</Text></Text>
-                            <Image source={require('../assets/cloud.png')} style={{height:150,width:150}}/>
-</View>
-</View>
- </SafeAreaView>
             )
         }
     }  
